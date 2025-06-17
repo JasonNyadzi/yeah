@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Transport Hub</title>
+<style>
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: linear-gradient(120deg, #e0eafc 0%, #cfdef3 100%);
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+header {
+  background: linear-gradient(90deg, #ff5f6d, #ffc371);
+  color: white;
+  padding: 36px 0 24px 0;
+  text-align: center;
+  font-size: 2.7em;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.10);
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+}
+.main-container {
+  display: flex;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+.sidebar {
+  background: linear-gradient(180deg, #43cea2 0%, #185a9d 100%);
+  min-width: 220px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  box-shadow: 2px 0 12px rgba(33,147,176,0.08);
+  border-top-right-radius: 24px;
+  border-bottom-right-radius: 24px;
+}
+.sidebar nav {
+  display: flex;
+  flex-direction: column;
+  margin-top: 32px;
+}
+.sidebar a {
+  color: #fff;
+  text-decoration: none;
+  padding: 18px 32px;
+  font-size: 1.1em;
+  margin: 0;
+  text-transform: uppercase;
+  font-weight: 600;
+  border-radius: 0 20px 20px 0;
+  transition: background 0.2s, color 0.2s, padding-left 0.2s;
+  letter-spacing: 0.5px;
+}
+.sidebar a:hover, .sidebar a.active {
+  background: #ffeb3b;
+  color: #222;
+  padding-left: 44px;
+}
+.tabs-content {
+  flex: 1 1 auto;
+  padding: 40px 4vw 0 4vw;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  min-width: 0;
+}
+.tab-card {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 6px 24px rgba(52,73,94,0.10);
+  padding: 36px 32px 28px 32px;
+  margin-bottom: 32px;
+  display: none;
+  animation: fadeIn 0.5s;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px);}
+  to { opacity: 1; transform: translateY(0);}
+}
+.tab-card.active {
+  display: block;
+}
+.tab-card h3 {
+  margin-top: 0;
+  font-size: 2em;
+  color: #2193b0;
+  letter-spacing: 0.5px;
+}
+.tab-content {
+  margin-top: 18px;
+  font-size: 1.13em;
+}
+audio {
+  margin: 28px 0 12px 0;
+  width: 100%;
+  border-radius: 8px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 22px;
+  background: #fffbe7;
+  border-radius: 6px;
+  overflow: hidden;
+}
+table, th, td {
+  border: 1px solid #b2bec3;
+}
+th, td {
+  padding: 12px;
+  text-align: left;
+}
+th {
+  background: linear-gradient(90deg, #43cea2 0%, #185a9d 100%);
+  color: white;
+  font-size: 1em;
+}
+ul {
+  padding: 0;
+  list-style-type: none;
+}
+ul li {
+  background: #e3f6fd;
+  margin: 7px 0;
+  padding: 12px 18px;
+  border-radius: 7px;
+  color: #04506e;
+  font-weight: 500;
+  box-shadow: 0 2px 6px rgba(33,147,176,0.09);
+}
+.media-section {
+  background: linear-gradient(90deg, #ffecd2 0%, #fcb69f 100%);
+  padding: 38px 8vw 38px 8vw;
+  text-align: center;
+  box-sizing: border-box;
+  border-radius: 24px;
+  margin: 32px 4vw 0 4vw;
+  box-shadow: 0 4px 18px rgba(252,182,159,0.10);
+}
+.media-section h2 {
+  color: #1a237e;
+  font-size: 2em;
+  margin-bottom: 16px;
+  letter-spacing: 0.7px;
+}
+iframe {
+  width: 100%;
+  max-width: 700px;
+  height: 400px;
+  border: none;
+  border-radius: 12px;
+  margin-top: 16px;
+  box-shadow: 0 6px 20px rgba(33,147,176,0.13);
+}
+footer {
+  background: linear-gradient(90deg, #11998e 0%, #38ef7d 100%);
+  color: white;
+  padding: 24px;
+  text-align: center;
+  font-size: 1em;
+  border-top-left-radius: 24px;
+  border-top-right-radius: 24px;
+  margin-top: 40px;
+}
+@media (max-width: 1100px) {
+  .main-container { flex-direction: column; }
+  .sidebar {
+    flex-direction: row;
+    min-width: 0;
+    border-radius: 0;
+    box-shadow: none;
+    justify-content: center;
+    padding: 0;
+  }
+  .sidebar nav {
+    flex-direction: row;
+    margin: 0;
+  }
+  .sidebar a {
+    border-radius: 0;
+    padding: 14px 18px;
+    font-size: 1em;
+    margin: 0 2px;
+  }
+  .sidebar a:hover, .sidebar a.active {
+    padding-left: 18px;
+  }
+  .tabs-content {
+    padding: 28px 2vw 0 2vw;
+  }
+  .media-section {
+    padding: 24px 2vw;
+    margin: 24px 2vw 0 2vw;
+  }
+}
+@media (max-width: 700px) {
+  header { font-size: 1.5em; padding: 22px 0 14px 0;}
+  .tab-card { padding: 18px 8px 14px 8px;}
+  .tabs-content { padding: 12px 2vw 0 2vw;}
+  .media-section { padding: 14px 1vw; }
+  iframe { height: 220px; }
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>Transport Hub</h1>
+</header>
+<div class="main-container">
+  <aside class="sidebar">
+    <nav>
+      <a href="javascript:void(0)" class="active" onclick="showTab('tab1', this)">Welcome</a>
+      <a href="javascript:void(0)" onclick="showTab('tab2', this)">Travel Tips</a>
+      <a href="javascript:void(0)" onclick="showTab('tab3', this)">Vehicle Guide</a>
+      <a href="javascript:void(0)" onclick="showTab('tab4', this)">Route Data</a>
+      <a href="javascript:void(0)" onclick="showTab('tab5', this)">Traffic Trends</a>
+      <a href="javascript:void(0)" onclick="showTab('tab6', this)">Contact Us</a>
+    </nav>
+  </aside>
+  <section class="tabs-content">
+    <div class="tab-card active" id="tab1">
+      <h3>Welcome to Transport Hub</h3>
+      <div class="tab-content">
+        <p>Welcome to the Transport Hub, your go-to destination for travel tips, vehicle guides, route statistics, and up-to-date traffic trends. Navigate the world of transport with ease and confidence!</p>
+        <h4>Listen to Our Featured Transport Podcast</h4>
+        <audio controls>
+          <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" type="audio/mp3">
+          Your browser does not support the audio element.
+        </audio>
+      </div>
+    </div>
+    <div class="tab-card" id="tab2">
+      <h3>Travel Tips</h3>
+      <div class="tab-content">
+        <ul>
+          <li>Plan your route ahead to avoid peak traffic hours.</li>
+          <li>Choose eco-friendly transport options whenever possible.</li>
+          <li>Always check vehicle condition before a long journey.</li>
+          <li>Keep emergency contacts and essentials handy during travel.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tab-card" id="tab3">
+      <h3>Vehicle Guide</h3>
+      <div class="tab-content">
+        <ul>
+          <li><strong>Cars:</strong> Best for city commutes and family travel.</li>
+          <li><strong>Buses:</strong> Cost-effective and environmentally friendly for group travel.</li>
+          <li><strong>Bicycles:</strong> Ideal for short distances and fitness enthusiasts.</li>
+          <li><strong>Trains:</strong> Fast and reliable for intercity travel.</li>
+          <li><strong>Electric Scooters:</strong> Perfect for urban micro-mobility.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tab-card" id="tab4">
+      <h3>Route Data</h3>
+      <div class="tab-content">
+        <table>
+          <thead>
+            <tr>
+              <th>Route</th>
+              <th>Average Travel Time</th>
+              <th>Popular Vehicle</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Downtown to Airport</td>
+              <td>40 min</td>
+              <td>Taxi</td>
+            </tr>
+            <tr>
+              <td>Main Station to City Park</td>
+              <td>15 min</td>
+              <td>Bicycle</td>
+            </tr>
+            <tr>
+              <td>Central Avenue Loop</td>
+              <td>30 min</td>
+              <td>Bus</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="tab-card" id="tab5">
+      <h3>Traffic Trends</h3>
+      <div class="tab-content">
+        <ul>
+          <li>City center traffic peaks between 8-11 AM and 4-7 PM.</li>
+          <li>Electric vehicle adoption is rapidly increasing in urban areas.</li>
+          <li>Weekend public transport ridership is up 15% compared to weekdays.</li>
+          <li>Bicycle lane usage has doubled in the past year.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tab-card" id="tab6">
+      <h3>Contact Us</h3>
+      <div class="tab-content">
+        <p>For inquiries or suggestions, reach out to us at <a href="mailto:info@transporthub.com">info@transporthub.com</a>.</p>
+      </div>
+    </div>
+  </section>
+</div>
+<section class="media-section">
+  <h2>Watch: Innovations in Urban Transport</h2>
+  <iframe src="https://www.youtube.com/embed/6tF2rZniwuY" allowfullscreen></iframe>
+</section>
+<footer>
+  <p>Contact us at <a href="mailto:info@transporthub.com" style="color:white;">info@transporthub.com</a></p>
+  <p>&copy; 2025 Transport Hub. All rights reserved.</p>
+</footer>
+<script>
+function showTab(tabId, el) {
+  // Hide all tab cards
+  document.querySelectorAll('.tab-card').forEach(tab => tab.classList.remove('active'));
+  // Show selected tab
+  document.getElementById(tabId).classList.add('active');
+  // Update sidebar nav active state
+  document.querySelectorAll('.sidebar a').forEach(a => a.classList.remove('active'));
+  if (el) el.classList.add('active');
+}
+// Show first tab by default
+showTab('tab1', document.querySelector('.sidebar a'));
+</script>
+</body>
+</html>
